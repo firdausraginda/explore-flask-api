@@ -26,3 +26,23 @@ source vir-env/bin/activate
 ```sh
 pip3 install flask
 ```
+
+* set running environment
+```sh
+export FLASK_ENV=development
+```
+
+* define flask app path
+```sh
+export FLASK_APP=src
+```
+
+* run flask application
+```sh
+flask run
+```
+
+* install **python-dotenv** to utilize `.flaskenv`
+```sh
+pip3 install python-dotenv
+```
