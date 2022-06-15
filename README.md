@@ -42,7 +42,29 @@ export FLASK_APP=src
 flask run
 ```
 
-* install **python-dotenv** to utilize `.flaskenv`
+* install [python-dotenv](https://pypi.org/project/python-dotenv/) to utilize `.flaskenv`
 ```sh
 pip3 install python-dotenv
+```
+
+* install [Flask SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/quickstart/#installation) to setup database
+```sh
+pip3 install Flask-SQLAlchemy
+```
+
+### Generate `database.db`
+
+* enter flask shell by type this in terminal:
+```sh
+flask shell
+```
+
+* import db
+```sh
+from src.database import db
+```
+
+* create db
+```sh
+db.create_all()
 ```
