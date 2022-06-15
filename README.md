@@ -52,10 +52,16 @@ pip3 install python-dotenv
 pip3 install Flask-SQLAlchemy
 ```
 
-## Run Flask
-```sh
-flask run
-```
+## Config File
+
+### `.flaskenv` file
+* contain configuration of flask environment, flask app, & DB URI
+* the idea is to bundle flask config, so everytime run flask in different terminal, do need to specify the config 1 by 1
+* this `.flaskenv` is safe to push to version control
+
+### `.env` file
+* contain sensitive config
+* better keep it in local, use .gitignore for this
 
 ## Generate `database.db`
 
