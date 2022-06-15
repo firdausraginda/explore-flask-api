@@ -52,7 +52,12 @@ pip3 install python-dotenv
 pip3 install Flask-SQLAlchemy
 ```
 
-### Generate `database.db`
+## Run Flask
+```sh
+flask run
+```
+
+## Generate `database.db`
 
 * enter flask shell by type this in terminal:
 ```sh
