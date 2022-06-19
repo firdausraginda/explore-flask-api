@@ -65,6 +65,13 @@ pip3 install python-dotenv
 pip3 install Flask-SQLAlchemy
 ```
 
+### Other Dependencies
+
+* install (validators)[https://validators.readthedocs.io/en/latest/] to validate email
+```sh
+pip3 install validators
+```
+
 ## Config File
 
 ### `.flaskenv` file
