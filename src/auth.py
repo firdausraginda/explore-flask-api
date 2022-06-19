@@ -1,6 +1,6 @@
 import json
-from flask import Blueprint,request,jsonify
-from werkzeug.security import check_password_hash,generate_password_hash
+from flask import Blueprint, request, jsonify
+from werkzeug.security import check_password_hash, generate_password_hash
 import validators
 from src.constants.http_status_code import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED, HTTP_409_CONFLICT
 from src.database import User, db
@@ -16,22 +16,22 @@ def register():
     password = request.json['password']
 
     if len(password) < 6:
-        return jsonify({'error': 'password is too short'}),HTTP_400_BAD_REQUEST
+        return jsonify({'error': 'password is too short'}), HTTP_400_BAD_REQUEST
     
     if len(username) < 3:
-        return jsonify({'error': 'username is too short'}),HTTP_400_BAD_REQUEST
+        return jsonify({'error': 'username is too short'}), HTTP_400_BAD_REQUEST
     
     if not username.isalnum() or ' ' in username:
-        return jsonify({'error': 'username should be alpha numeric & no spaces'}),HTTP_400_BAD_REQUEST
+        return jsonify({'error': 'username should be alpha numeric & no spaces'}), HTTP_400_BAD_REQUEST
     
     if not validators.email(email):
-        return jsonify({'error': 'email is not valid'}),HTTP_400_BAD_REQUEST
+        return jsonify({'error': 'email is not valid'}), HTTP_400_BAD_REQUEST
     
     if User.query.filter_by(email=email).first() is not None:
-        return jsonify({'error': 'email is already exists'}),HTTP_409_CONFLICT
+        return jsonify({'error': 'email is already exists'}), HTTP_409_CONFLICT
     
     if User.query.filter_by(username=username).first() is not None:
-        return jsonify({'error': 'username is already exists'}),HTTP_409_CONFLICT
+        return jsonify({'error': 'username is already exists'}), HTTP_409_CONFLICT
     
     pwd_hash = generate_password_hash(password)
     user = User(username=username, password=pwd_hash, email=email)
@@ -68,9 +68,7 @@ def login():
                 }
             }), HTTP_200_OK
 
-        return 'password wrong'
-    return 'not user'
-    # return jsonify({'error': 'wrong credentials'}), HTTP_401_UNAUTHORIZED
+    return jsonify({'error': 'wrong credentials'}), HTTP_401_UNAUTHORIZED
 
 @auth.get("/me")
 def me():
