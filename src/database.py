@@ -5,6 +5,7 @@ from sqlalchemy.orm import backref
 import string
 import random
 
+
 db = SQLAlchemy()
 
 class User(db.Model):

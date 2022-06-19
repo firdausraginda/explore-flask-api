@@ -65,9 +65,14 @@ pip3 install python-dotenv
 pip3 install Flask-SQLAlchemy
 ```
 
+* install [flask-jwt-extended](https://flask-jwt-extended.readthedocs.io/en/stable/). This to track session from multiple platforms, called token.
+```sh
+pip3 install flask-jwt-extended
+```
+
 ### Other Dependencies
 
-* install (validators)[https://validators.readthedocs.io/en/latest/] to validate email
+* install [validators](https://validators.readthedocs.io/en/latest/) to validate email
 ```sh
 pip3 install validators
 ```
