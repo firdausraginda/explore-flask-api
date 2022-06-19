@@ -3,6 +3,19 @@ https://www.youtube.com/watch?v=WFzRy8KVcrM&list=PLeGc_lalTbVH2ooMArbPwDi36SIO-U
 
 ## Dependencies
 
+### Pip Freeze & Pip Install
+
+* pip freeze
+```sh
+pip3 freeze > requirements.txt
+```
+
+* install from `requirements.txt`
+```sh
+pip3 install -r requirements.txt
+```
+
+
 ### Virtual Env
 
 * install virtual env
