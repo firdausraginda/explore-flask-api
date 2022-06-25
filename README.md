@@ -15,7 +15,6 @@ pip3 freeze > requirements.txt
 pip3 install -r requirements.txt
 ```
 
-
 ### Virtual Env
 
 * install virtual env
@@ -104,3 +103,9 @@ from src.database import db
 ```sh
 db.create_all()
 ```
+
+## App Tools
+
+* [SQL Lite Browser](https://sqlitebrowser.org/)
+* [SQL Lite Online](https://sqliteonline.com/)
+* [postman](https://www.postman.com/downloads/)

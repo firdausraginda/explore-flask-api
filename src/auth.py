@@ -4,7 +4,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import validators
 from src.constants.http_status_code import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_401_UNAUTHORIZED, HTTP_409_CONFLICT
 from src.database import User, db
-from flask_jwt_extended import create_access_token, create_refresh_token
+from flask_jwt_extended import jwt_required, create_access_token, create_refresh_token, get_jwt_identity
 
 
 auth = Blueprint("auth", __name__, url_prefix="/api/v1/auth")
@@ -71,5 +71,15 @@ def login():
     return jsonify({'error': 'wrong credentials'}), HTTP_401_UNAUTHORIZED
 
 @auth.get("/me")
+@jwt_required()
 def me():
-    return {"user": "me"}
+    # import pdb # was python debugger, enable us to pause the program & expect some variables or func to returned
+    # pdb.set_trace()
+
+    user_id = get_jwt_identity()
+    user = User.query.filter_by(id=user_id).first()
+
+    return ({
+        'username': user.username,
+        'email': user.email,
+    }),HTTP_200_OK
