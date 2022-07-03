@@ -2,9 +2,11 @@ from flask import Flask, jsonify, redirect
 import os
 from src.auth import auth
 from src.bookmarks import bookmarks
-from src.constants.http_status_code import HTTP_404_NOT_FOUND, HTTP_500_INTERNAL_SERVER_ERROR
+from src.constants.http_status_code import HTTP_404_NOT_FOUND
 from src.database import db, Bookmark
 from flask_jwt_extended import JWTManager
+from flasgger import Swagger
+from src.config.swagger import template, swagger_config
 
 
 def create_app(test_config=None):
@@ -17,14 +19,18 @@ def create_app(test_config=None):
             SECRET_KEY = os.environ.get("SECRET_KEY"),
             SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DB_URI"),
             SQLALCHEMY_TRACK_MODIFICATIONS=False,
-            JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
+            JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY"),
+            SWAGGER = {
+                'title': 'Bookmarks API',
+                'uiversion': 3
+            }
         )
     else:
         app.config.from_mapping(test_config)
     
-    @app.get("/")
-    def index():
-        return "hello world"
+    # @app.get("/")
+    # def index():
+    #     return "hello world"
 
     @app.get("/hello")
     def say_hello():
@@ -37,6 +43,8 @@ def create_app(test_config=None):
 
     app.register_blueprint(auth)
     app.register_blueprint(bookmarks)
+
+    Swagger(app, config=swagger_config, template=template)
 
     @app.get('/<short_url>')
     def redirect_to_url(short_url):
