@@ -102,12 +102,46 @@ def delete_bookmark(id):
 
     if not bookmark:
         return jsonify({
-            'msg': 'Item not found!'
+            'message': 'item not found!'
         }), HTTP_404_NOT_FOUND
 
     db.session.delete(bookmark)
     db.session.commit()
 
-    return ({}), HTTP_204_NO_CONTENT
+    return ({}), HTTP_204_NO_CONTENT # HTTP_204_NO_CONTENT doesn't return any message
 
+@bookmarks.put('/<int:id>')
+@bookmarks.patch('/<int:id>')
+@jwt_required()
+def edit_bookmark(id):
+    current_user = get_jwt_identity()
 
+    bookmark = Bookmark.query.filter_by(user_id=current_user, id=id).first()
+
+    if not bookmark:
+        return ({
+            'message': 'item not found!'
+        }), HTTP_404_NOT_FOUND
+    
+    body = request.get_json().get('body', '')
+    url = request.get_json().get('url', '')
+
+    if not validators.url(url):
+        return jsonify({
+            'error': 'enter valid URL!'
+        }), HTTP_400_BAD_REQUEST
+    
+    bookmark.url = url
+    bookmark.body=body
+
+    db.session.commit()
+
+    return jsonify({
+        'id': bookmark.id,
+        'url': bookmark.url,
+        'short_url': bookmark.short_url,
+        'visit': bookmark.visits,
+        'body': bookmark.body,
+        'created_at': bookmark.created_at,
+        'updated_at': bookmark.updated_at,
+    }), HTTP_200_OK
