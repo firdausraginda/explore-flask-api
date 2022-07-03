@@ -2,6 +2,7 @@ from flask import Flask, jsonify, redirect
 import os
 from src.auth import auth
 from src.bookmarks import bookmarks
+from src.constants.http_status_code import HTTP_404_NOT_FOUND, HTTP_500_INTERNAL_SERVER_ERROR
 from src.database import db, Bookmark
 from flask_jwt_extended import JWTManager
 
@@ -47,4 +48,10 @@ def create_app(test_config=None):
 
             return redirect(bookmark.url)
     
+    @app.errorhandler(HTTP_404_NOT_FOUND)
+    def handle_404(e):
+        return jsonify({
+            'message': f'{e}'
+        }), HTTP_404_NOT_FOUND
+
     return app
