@@ -118,6 +118,12 @@ from src.database import db
 db.create_all()
 ```
 
+## Generate Secret Key for Heroku
+* execute this command
+```sh
+python -c 'import secrets; print(secrets.token_hex())'
+```
+
 ## App Tools
 
 * [SQL Lite Browser](https://sqlitebrowser.org/)
