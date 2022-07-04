@@ -76,14 +76,18 @@ pip3 install flask-jwt-extended
 pip3 install validators
 ```
 
-* install [flasgger](https://github.com/flasgger/flasgger) better documentation
-install latest setuptools
+* install [flasgger](https://github.com/flasgger/flasgger) for better documentation
 ```sh
 pip3 install -U setuptools
 ```
 
 ```sh
 pip3 install flasgger
+```
+
+* install [g unicorn](https://gunicorn.org/)
+```sh
+pip3 install gunicorn
 ```
 
 ## Config File
